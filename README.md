@@ -27,6 +27,8 @@ It is useful when the scene should remain inside a Wildcard file while a specifi
 
 This node depends on the Impact Pack Wildcard engine. It does not implement a separate Wildcard parser.
 
+## Optional
+
 ## Installation
 
 ### Git
@@ -164,6 +166,12 @@ After adding, renaming, or moving wildcard files, reload the ComfyUI page or res
 Wildcards are optional. The node also works as a normal prompt processor:
 
 A prompt without Wildcards and without `<keyword>` passes through the Impact Pack processor normally.
+
+## Tip: multiple runs with random Wildcards
+If you want to get a different random prompt on every image, prefer **increasing the number of queue runs** over increasing `batch_size`.
+
+- `batch_size > 1` generates several images **in the same execution**, which means the Wildcard node is processed only **once** and the same resolved prompt/seed is reused for the whole batch.
+- Queuing the same Workflow multiple times (batch_size = 1, queue count > 1) makes the Wildcard node re-run on **every queue item**, producing a new random prompt and a new seed each time - which is what actually gives you varied results.
 
 ## Example project structure
 ```text
