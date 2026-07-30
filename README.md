@@ -177,6 +177,7 @@ ComfyUI/
     └── comfyui-keyword-wildcard-processor/
         ├── __init__.py
         ├── keyword_wildcard_processor.py
+		├── LICENCE
         ├── README.md
         ├── examples/
         │   └── casual_cafe.txt
