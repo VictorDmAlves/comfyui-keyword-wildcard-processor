@@ -10,6 +10,11 @@ A custom node for ComfyUI that processes Wildcards through the ComfyUI Impact Pa
 
 It is useful when the scene should remain inside a Wildcard file while a specific subject, age, outfit, product, character description, or other variable is supplied directly in the Workflow.
 
+## Latest release
+### 1.0
+Added
+- Initial commit
+
 ## Features
 - Uses the same `impact.wildcards.process` engine as the Impact Pack.
 - Accepts regular text, `__wildcards__`, or both in the same prompt.
@@ -23,7 +28,7 @@ It is useful when the scene should remain inside a Wildcard file while a specifi
 
 ## Requirements
 - [ComfyUI](https://github.com/comfyanonymous/ComfyUI).
-- [ComfyUI Impact Pack](https://github.com/ltdrdata/ComfyUI-Impact-Pack).
+- [ComfyUI Impact Pack](https://github.com/ltdrdata/ComfyUI-Impact-Pack) installed and enabled.
 
 This node depends on the Impact Pack Wildcard engine. It does not implement a separate Wildcard parser.
 
@@ -50,11 +55,6 @@ ComfyUI/
     └── comfyui-keyword-wildcard-processor/
         ├── __init__.py
         ├── keyword_wildcard_processor.py
-		├── LICENSE
-		├── README.md
-		├── __pycache__
-		├── examples/
-		├── images/
         └── web/
 ```
 
@@ -170,11 +170,25 @@ Wildcards are optional. The node also works as a normal prompt processor:
 
 A prompt without Wildcards and without `<keyword>` passes through the Impact Pack processor normally.
 
-## Tip: multiple runs with random Wildcards
-If you want to get a different random prompt on every image, prefer **increasing the number of queue runs** over increasing `batch_size`.
-
-- `batch_size > 1` generates several images **in the same execution**, which means the Wildcard node is processed only **once** and the same resolved prompt/seed is reused for the whole batch.
-- Queuing the same Workflow multiple times (batch_size = 1, queue count > 1) makes the Wildcard node re-run on **every queue item**, producing a new random prompt and a new seed each time - which is what actually gives you varied results.
+## Example project structure
+```text
+ComfyUI/
+└── custom_nodes/
+    ├── comfyui-impact-pack/
+    │   └── custom_wildcards/
+    │       ├── casual_cafe.txt
+    │       └── people/
+    │           └── portrait.txt
+    └── comfyui-keyword-wildcard-processor/
+        ├── __init__.py
+        ├── keyword_wildcard_processor.py
+		├── LICENCE
+        ├── README.md
+        ├── examples/
+        │   └── casual_cafe.txt
+        └── web/
+            └── keyword_wildcard_processor.js
+```
 
 ## Troubleshooting
 
@@ -197,7 +211,7 @@ If you want to get a different random prompt on every image, prefer **increasing
 - Remember that an empty keyword intentionally skips replacement.
 
 ### The processed preview does not update
-The `processed_text` field updates after the node executes. Queue the Workflow and confirm that the node is part of the executed graph.
+The `processed_text` field updates after the node executes. Queue the workflow and confirm that the node is part of the executed graph.
 
 ## Updating
 From the custom node directory:
@@ -214,14 +228,3 @@ This project calls the Impact Pack's internal `impact.wildcards.process` functio
 
 ## Acknowledgements
 This project relies on the Wildcard processing engine provided by ComfyUI Impact Pack. ComfyUI and ComfyUI Impact Pack are separate projects owned and maintained by their respective contributors.
-
-## Contributing
-Bug reports and pull requests are welcome. When reporting a problem, include:
-- ComfyUI version or commit
-- ComfyUI Impact Pack version or commit
-- Operating system
-- Relevant terminal error output
-- A minimal wildcard file and Workflow that reproduce the issue
-
-## License
-See [LICENSE](LICENSE).
